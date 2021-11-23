@@ -1,4 +1,7 @@
 const User = require('./User');
-const Roadtrip = require('./Roadtrip');
+const Company = require('./Company');
+const Admin = require('./Admin');
+const Job = require('./Job');
+const Form = require('./Form');
 
-module.exports = { User, Roadtrip };
+module.exports = { User, Company, Job, Form, Admin };
