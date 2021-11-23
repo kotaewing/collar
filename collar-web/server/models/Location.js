@@ -1,18 +1,13 @@
 const { Schema } = require('mongoose');
 
-const imageSchema = new Schema(
+const locationSchema = new Schema(
     {
-        username: {
+        lat: {
             type: String,
             required: true,
             trim: true
         },
-        url: {
-            type: String,
-            required: true,
-            trim: true
-        },
-        alt: {
+        lon: {
             type: String,
             required: true,
             trim: true
@@ -20,4 +15,4 @@ const imageSchema = new Schema(
     }
 );
 
-module.exports = imageSchema;
+module.exports = locationSchema;

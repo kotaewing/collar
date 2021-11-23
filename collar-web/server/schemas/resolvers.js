@@ -2,7 +2,9 @@ const mongoose = require("mongoose");
 const { AuthenticationError } = require("apollo-server-express");
 const { User, Roadtrip, Image } = require("../models");
 const { signToken } = require("../utils/auth");
-const cloudinary = require("cloudinary").v2;
+//const cloudinary = require("cloudinary").v2;
+
+// Query ( *me, *employee, *employees, *job, *jobs, *company, *companies, *location, *form )
 
 const resolvers = {
 	Query: {
@@ -10,24 +12,25 @@ const resolvers = {
 			if (context.user) {
 				const userData = await User.findOne({ _id: context.user._id })
 					.select("-__v -password")
-					.populate("roadtrips")
-					.populate("expenses");
+					.populate("company")
+					.populate("jobs")
+					.populate("location");
 				console.log(userData);
 				return userData;
 			}
 			throw new AuthenticationError("Not Logged In");
 		},
-		user: async (parent, { username }, context) => {
+		employee: async (parent, { email }, context) => {
 			if (context.user) {
-				const userData = await User.findOne({ username })
+				const userData = await User.findOne({ email })
 					.select("-__v -password")
-					.populate("roadtrips")
+					.populate("company")
 					.populate("expenses");
 
 				return userData;
 			}
 		},
-		users: async (parent, args, context) => {
+		employees: async (parent, args, context) => {
 			if (context.user) {
 				const userdata = await User.find()
 					.select("-__v -password")
@@ -372,6 +375,4 @@ const resolvers = {
 };
 
 module.exports = resolvers;
-
-// Query ( *me, *user, *users, *roadtrip, *roadtrips )
-// Mutation (*login, signup, *createUser, *addUser,*removeUser, *addRoadtrip, *deleteRoadtrip, *addExpense, updateExpense, *deleteExpense, *addImage, *deleteImage, *addStop, 8deleteStop)
+// Mutation (*login, *createUser, *updateEmployee,*assignEmployee, *removeEmployee, *deleteEmployee, *createJob, *updateJob, *deleteJob, *updateLocation, *createForm, *addQuestion, *addAnswer, *deleteQuestion, *deleteAnswer)

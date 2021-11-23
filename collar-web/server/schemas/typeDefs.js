@@ -31,6 +31,22 @@ const typeDefs = gql`
 	type Admin {
 		employees: [User]
 	}
+	type Form {
+		_id: ID!
+		questions: [Question]
+		answers: [answer]
+	}
+	type Question {
+		_id: ID!
+		questionId: Int
+		question: String
+		quetionType: String
+	}
+	type Answer {
+		_id: ID!
+		questionId: Int
+		answer: String
+	}
 	type Query {
 		me: User
 		employee(employeeId: Int!): User
@@ -39,7 +55,8 @@ const typeDefs = gql`
 		jobs: [Job]
 		company(businessNumber: Int!): Company
 		companies: [Company]
-		<COMMENT> add location
+		location: [User]
+		form: Form
 	}
 	type Auth {
 		token: ID!
@@ -54,7 +71,7 @@ const typeDefs = gql`
 			email: String!
 			admin: Boolean!
 			company: Company!
-			phoneNumber: Int!å
+			phoneNumber: Int!
 		): Auth
 		updateEmployee(
 			_id: ID!
@@ -88,12 +105,27 @@ const typeDefs = gql`
 			employee: User!
 		): Job
 		deleteJob(_id: ID!): Job
-		addImage(url: String!, alt: String!, _id: ID!): Roadtrip
-		deleteImage(_id: ID!, imageId: ID!): Roadtrip
-		addStop(lat: String!, lon: String!, _id: ID!): Roadtrip
-		deleteStop(_id: ID!, stopId: ID!): Roadtrip
-		addPlaylist(playlist: String!, roadtripId: ID!): Roadtrip
-		deletePlaylist(_id: ID!): Roadtrip
+		updateLocation(
+			_id: ID
+			employeeId: Int!
+			lat: String!
+			lon: String!
+		): User
+		createForm(
+			_id: ID!
+			formId: Int!
+		): Form
+		addQuestion(
+			question: String!
+			questionType: String!
+			questionId: String!
+		): Form
+		addAnswer(
+			questionId: String!
+			answer: String
+		): Form
+		deleteQuestion(questionId: String!): Form
+		deleteAnswer(_id: ID!): Form
 	}
 `;
 
