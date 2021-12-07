@@ -13,6 +13,10 @@ const typeDefs = gql`
 		phoneNumber: Int
 		location: Location
 	}
+	type Location {
+		lat: String
+		lon: String
+	}
 	type Job {
 		title: String
 		description: String
@@ -34,7 +38,7 @@ const typeDefs = gql`
 	type Form {
 		_id: ID!
 		questions: [Question]
-		answers: [answer]
+		answers: [Answer]
 	}
 	type Question {
 		_id: ID!
@@ -70,7 +74,7 @@ const typeDefs = gql`
 			lastName: String!
 			email: String!
 			admin: Boolean!
-			company: Company!
+			company: String!
 			phoneNumber: Int!
 		): Auth
 		updateEmployee(
@@ -80,7 +84,7 @@ const typeDefs = gql`
 			username: String!
 			email: String!
 			admin: Boolean!
-			company: Company!
+			company: String!
 			phoneNumber: Int!
 		): User
 		assignEmployee(employeeId: Int!, _id: ID!): User
@@ -93,7 +97,7 @@ const typeDefs = gql`
 			time: Int!
 			address: String!
 			jobNumber: Int!
-			employee: User!
+			employeeId: Int!
 		): Job
 		updateJob(
 			_id: ID!
@@ -102,7 +106,7 @@ const typeDefs = gql`
 			time: Int!
 			address: String!
 			jobNumber: Int!
-			employee: User!
+			employeeId: Int!
 		): Job
 		deleteJob(_id: ID!): Job
 		updateLocation(
