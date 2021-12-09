@@ -22,17 +22,10 @@ const userSchema = new Schema({
 		type: String,
 		required: true
 	},
-	// roadtrips: [
-	// 	{
-	// 		type: Schema.Types.ObjectId,
-	// 		ref: "Roadtrip",
-	// 	},
-	// ],
-	// expenses: [expenseSchema],
 	admin: {
 		type: Boolean,
 		required: true,
-		value: Boolean = false,
+		value: false
 	},
 	company: {
 		type: Schema.Types.ObjectId,
